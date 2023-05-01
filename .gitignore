@@ -1,0 +1,9 @@
+*.swp
+*.swo
+*.pyc
+
+.venv/
+.vscode/
+
+resources/
+logs/

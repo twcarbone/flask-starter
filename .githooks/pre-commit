@@ -1,0 +1,31 @@
+#!/bin/bash
+
+failmsg="ERROR: Aborting commit."
+
+# Black
+black --check --quiet .
+if [ $? -ne 0 ]; then
+    echo "ERROR: Black pre-commit hook failed."
+    echo $failmsg
+    exit 1
+else
+    echo "INFO: Running black... OK"
+fi
+
+# isort
+isort --check-only --quiet .
+
+if [ $? -ne 0 ]; then
+    echo "ERROR: isort pre-commit hook failed."
+    echo $failmsg
+    exit 1
+else
+    echo "INFO: Running isort... OK"
+fi
+
+branch=$(git symbolic-ref --short HEAD)
+if [ "$branch" == master ]; then
+    echo "INFO: On branch 'master'. Do something..."
+else
+    echo "INFO: Not on branch 'master'. Don't do something..."
+fi
